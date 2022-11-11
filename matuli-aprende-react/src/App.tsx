@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
+import LoginButton from './components/LoginButton';
+import LoginMessage from './components/LoginMessage';
+import { MessageContextProvider } from './context/MessageContext'
+
+
 import './App.css';
 
 function App() {
+
+  const [message, setMessage] = useState('Not connected...')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <MessageContextProvider>
+        <LoginMessage />
+        <LoginButton title = "Login" setMessage = {setMessage }></LoginButton>
+      </MessageContextProvider> 
     </div>
   );
 }
