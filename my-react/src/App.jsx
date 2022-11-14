@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { blue } from '@material-ui/core/colors';
+import { useEffect, useState } from 'react';
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/croodles';
-
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -20,6 +20,7 @@ function App() {
     });
   };
 
+
   return (
     <div className='App'>
       <h1>        
@@ -34,7 +35,7 @@ function App() {
         <div>
           {users.map((user) => (
             <div>
-              <div>{<img src={getAvatar()} />}</div>
+              <div><img src={getAvatar()} /></div>
               <div>{user.name}</div>
             </div>
           ))}
