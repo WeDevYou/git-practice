@@ -3,9 +3,7 @@ import { Button } from './components/Button/Button';
 
 export default function App() {
   const [users, setUsers] = useState();
-  const [setError] = useState();
-
-  
+  const [error, setError] = useState();
 
   const handleClick = async () => {
    
@@ -47,7 +45,7 @@ export default function App() {
         <Button onClick={handleClick} text='Users' />
   
         {users?.length === 0 ? (
-          <div>Users available</div>
+          <div>{error}</div>
         ) : (
           <div>
             {users?.map((user) => (
