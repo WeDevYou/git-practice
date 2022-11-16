@@ -15,39 +15,48 @@ function App() {
     getAllAvatars(data);
   };
 
+  const addAvatar = async (user) => {
+    const response = await fetch(
+      `https://avatars.dicebear.com/api/male/${user.username}.svg`
+    );
+    const avatar = await response.text();
+
+    return { ...user, avatar };
+  };
+
   const getAllAvatars = async (data) => {
     let newUsersList = [];
 
-    for (let i = 0; i < data.length; i++) {
-      const response = await fetch(
-        `https://avatars.dicebear.com/api/male/${data[i].username}.svg`
-      );
-      const avatar = await response.text();
-      newUsersList.push({ ...data[i], avatar });
+    for await (const response of data.map((user) => addAvatar(user))) {
+      newUsersList.push(response);
     }
 
     setUsers(newUsersList);
   };
 
+  const renderUsers = () => {
+    return !users.length ? (
+      <div>Todavia no tenemos usuarios</div>
+    ) : (
+      <div>
+        {users.map((user) => (
+          <div>
+            <div
+              dangerouslySetInnerHTML={{ __html: user.avatar }}
+              style={{ width: 50, height: 50 }}
+            />
+            <div>{user.name}</div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+	
+
   return (
     <div className='App'>
       <Button onClick={getData} text='Obtener usuarios' />
-
-      {users.length === 0 ? (
-        <div>Todavia no tenemos usuarios</div>
-      ) : (
-        <div>
-          {users.map((user) => (
-            <div>
-              <div
-                dangerouslySetInnerHTML={{ __html: user.avatar }}
-                style={{ width: 50, height: 50 }}
-              />
-              <div>{user.name}</div>
-            </div>
-          ))}
-        </div>
-      )}
+      {renderUsers()}
     </div>
   );
 }
