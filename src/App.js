@@ -45,7 +45,7 @@ export default function App() {
         <Button onClick={handleClick} text='Users' />
   
         {users?.length === 0 ? (
-          <div>{error}</div>
+          <div>{"Users Unavailable" || error}</div>
         ) : (
           <div>
             {users?.map((user) => (
