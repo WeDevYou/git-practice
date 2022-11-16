@@ -11,13 +11,9 @@ export default function App() {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
       );
-      if (response.ok) {
-        const data = await response.json();
+      const data = await response.json();
         
-        getAllAvatar(data);
-      } else {
-          setError("there was an error getting the user");
-      }
+      getAllAvatar(data);
     } catch (error) {
         setError("We couldn't make the request to get the user");
     }
@@ -28,7 +24,7 @@ export default function App() {
       try {
         for (let i = 0; i < data.length; i++) {
           const response = await fetch(
-            "https://avatars.dicebear.com/api/male/john.svg?background=%230000ff"
+            "https://avatars.dicebear.com/api/male/${data[i].username}.svg?background=%230000ff"
           );
           const avatar = await response.text();
           newUsersList.push({ ...data[i], avatar });
@@ -44,7 +40,7 @@ export default function App() {
       <div className='App'>
         <Button onClick={handleClick} text='Users' />
   
-        {users?.length === 0 ? (
+        {!users?.length ? (
           <div>{"Users Unavailable" || error}</div>
         ) : (
           <div>
