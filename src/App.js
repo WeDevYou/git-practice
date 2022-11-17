@@ -24,7 +24,7 @@ export default function App() {
       try {
         for (let i = 0; i < data.length; i++) {
           const response = await fetch(
-            "https://avatars.dicebear.com/api/male/${data[i].username}.svg?background=%230000ff"
+            `https://avatars.dicebear.com/api/male/${data[i].username}.svg?background=%230000ff`
           );
           const avatar = await response.text();
           newUsersList.push({ ...data[i], avatar });
