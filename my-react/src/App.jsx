@@ -3,46 +3,38 @@ import { useEffect, useState } from 'react';
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/croodles';
 
-function App() {
-  const [users, setUsers] = useState([]);
-  const getData = () => {
-    getAvatar();
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-      .then((json) => setUsers(json));
-  };
 
-  const getAvatar = () => {
-    return createAvatar(style, {
-      seed: 'custom-seed',
-      dataUri: true,
-      size: 100,
-    });
-  };
 
+  function App() {
+    const [users, setUsers] = useState([]);
+
+    const getUsers = async () => {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users');
+      const usersData = await response.json();
+  
+        setUsers(usersData);
+  };
 
   return (
     <div className='App'>
-      <h1>        
-       { <button onClick={getData}>"Haceme click Omar"</button> }
-      </h1>      
+      <button onClick={getUsers}> Aprietame </button>
 
-      { users.length == 0 ? (
-        <div>No hay nada por aquí.</div>
-      ) 
-      :
-      (
-        <div>
-          {users.map((user) => (
-            <div>
-              <div><img src={getAvatar()} /></div>
-              <div>{user.name}</div>
-            </div>
-          ))}
-        </div>
-      ) }
+      {!users.length ? (
+      <div>No hay nada por aquí.</div> //Ternary function
+    ) : (
+      <div>
+        {users.map((user) => (
+          <div key={user.username} >
+            <img src={`https://avatars.dicebear.com/api/croodles/${user.username}.svg?background=gray`} style={{ width: 50, height: 50 }}/>
+            <div>{user.name}</div>
+          </div>
+        ))}
+      </div>
+    )}
+
     </div>
   );
 }
+
 
 export default App;
