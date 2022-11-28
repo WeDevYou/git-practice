@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from './components/Button/Button';
 import { UserList } from './components/List/List';
 
 function App() {
@@ -11,27 +12,9 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <UserList onClick={getData}></UserList>
-            {!users.length ? (
-                <div>Todavia no tenemos usuarios</div>
-            ) : (
-                <>
-                    {users.map((user) => (
-                        <div key={user.username}>
-                            <img
-                                alt={user.username + '.logo.svg'}
-                                src={`https://avatars.dicebear.com/api/male/${user.username}.svg`}
-                                style={{ width: 50, height: 50 }}
-                            />
-                            <div>{user.name}</div>
-                            <div>{console.log(user.username)}</div>
-                            <div>{console.log(user.email)}</div>
-                            <div>{console.log(user.address)}</div>
-                        </div>
-                    ))}
-                </>
-            )}
+        <div className='App'>
+            <Button onClick={getData} text='Obtener usuarios' />
+            <UserList users={users} />
         </div>
     );
 }

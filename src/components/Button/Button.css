@@ -1,0 +1,11 @@
+.button{
+    background-color: #0255a5;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+    font: normal 400 16px/16px Open sans;
+    min-height: 35px;
+    min-width: 100px;
+    padding: 10px 25px;
+    transition: background-color 0.25s ease-out;
+}
